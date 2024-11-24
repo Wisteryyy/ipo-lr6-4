@@ -1,20 +1,16 @@
-search_string = input("Введите строку для поиска: ")  # запрос на ввод строки для поиска
+search_string = input("Введите строку для поиска: ") # запрашиваем строку для поиска
 
-with open("text.txt", "r") as file:  # открываем файл в режиме чтения
-    lines = file.readlines()  # считываем все строки файла в список
+with open("text.txt", "r", encoding="utf-8") as file: # открываем файл в режиме чтения с кодировкой
+    lines = file.readlines() # считываем все строки файла в список
 
-count_found = 0  # переменная для количества строк
-found_lines = []  # пустой список для хранения найденных строк
+found_lines = [line.strip() for line in lines if search_string in line] # находим строки с помощью генератора списков
 
-for line in lines:  # перебираем строки из файла
-    if search_string in line:  # проверка, есть ли введенная строка в файле
-        found_lines.append(line.strip())  # добавляем найденную строку в список, убирая лишние пробелы
-        count_found += 1  # увеличиваем счетчик найденных строк
+print(f"Количество найденных строк: {len(found_lines)}") # выводим количество найденных строк
+print("Найденные строки: ") # выводим
+for found_line in found_lines: # перебираем строки списка найденных строк
+    print(found_line) # выводим
 
-print("Найденные строки:")  # выводим
-for found_line in found_lines:  # перебираем строки списка найденных строк
-    print(found_line)  # выводим
-
-found_lines.sort(key=len)  # сортируем найденные строки по длине
-
-print(f"Количество найденных строк: {count_found}")  # выводим
+found_lines.sort(key=len) # сортируем найденные строки по длине
+print("Строки, отсортированные по длине: ") # выводим заголовок
+for found_line in found_lines: # выводим отсортированные строки
+    print(found_line)
