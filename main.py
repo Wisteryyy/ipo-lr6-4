@@ -1,19 +1,20 @@
-stroka = input("Введите строку для поиска: ") # запрос на ввод
+search_string = input("Введите строку для поиска: ")  # запрос на ввод строки для поиска
 
-with open("text.txt", "r", encoding="utf-8") as file: # открываем файл в режиме чтения
-    markers = file.readlines() # считываем в переменную ll
+with open("text.txt", "r") as file:  # открываем файл в режиме чтения
+    lines = file.readlines()  # считываем все строки файла в список
 
-kolichestvo = 0 # инициализируем
-list = [] # создаем пустой список
-for marker in markers: # перебераем строки файла
-    if stroka in marker: # если в нем есть наша введенная строка
-        list.append(marker.strip()) # то добавляем ее в наш список mm через пробел
-        kolichestvo += 1 # и считаем количество
+count_found = 0  # переменная для количества строк
+found_lines = []  # пустой список для хранения найденных строк
 
-print("Найденные строки:") # выводим строки
-for m in list: # элементы списка 
-    print(m) # выводятся
+for line in lines:  # перебираем строки из файла
+    if search_string in line:  # проверка, есть ли введенная строка в файле
+        found_lines.append(line.strip())  # добавляем найденную строку в список, убирая лишние пробелы
+        count_found += 1  # увеличиваем счетчик найденных строк
 
-list.sort(key=len) #сортируем по длине
+print("Найденные строки:")  # выводим
+for found_line in found_lines:  # перебираем строки списка найденных строк
+    print(found_line)  # выводим
 
-print(f"Количество одинаковых строк: {kolichestvo}") # выводим количество
+found_lines.sort(key=len)  # сортируем найденные строки по длине
+
+print(f"Количество найденных строк: {count_found}")  # выводим
